@@ -4991,7 +4991,7 @@ impl AccountsDb {
         max_clean_root: Option<Slot>,
     ) -> Option<FlushStats> {
         // We have not seen this slot, flush it.
-        let flush_stats = self.accounts_cache.slot_cache(slot).map(|slot_cache| {
+        self.accounts_cache.slot_cache(slot).map(|slot_cache| {
             #[cfg(test)]
             {
                 // Give some time for cache flushing to occur here for unit tests
@@ -5002,9 +5002,7 @@ impl AccountsDb {
             // by any other threads past this point. We are now responsible for
             // flushing this slot.
             self.do_flush_slot_cache(slot, &slot_cache, should_flush_f, max_clean_root)
-        });
-
-        flush_stats
+        })
     }
 
     fn report_store_stats(&self) {
