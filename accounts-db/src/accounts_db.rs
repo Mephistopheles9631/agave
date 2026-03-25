@@ -4976,11 +4976,6 @@ impl AccountsDb {
         flush_stats
     }
 
-    /// flush all accounts in this slot
-    fn flush_slot_cache(&self, slot: Slot) -> Option<FlushStats> {
-        self.flush_slot_cache_with_clean(slot, None::<&mut fn(&_) -> bool>, None)
-    }
-
     /// `should_flush_f` is an optional closure that determines whether a given
     /// account should be flushed. Passing `None` will by default flush all
     /// accounts
@@ -7075,7 +7070,7 @@ impl AccountsDb {
     }
 
     pub fn flush_accounts_cache_slot_for_tests(&self, slot: Slot) {
-        self.flush_slot_cache(slot);
+        self.flush_slot_cache_with_clean(slot, None::<&mut fn(&_) -> bool>, None);
     }
 
     /// useful to adapt tests written prior to introduction of the write cache
