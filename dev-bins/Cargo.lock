@@ -9799,7 +9799,7 @@ version = "4.1.0-alpha.0"
 dependencies = [
  "bincode",
  "log",
- "rand 0.9.4",
+ "rand 0.10.1",
  "serde",
  "solana-account 4.2.0",
  "solana-bincode",
