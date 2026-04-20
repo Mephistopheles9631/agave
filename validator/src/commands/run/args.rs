@@ -1807,22 +1807,21 @@ mod tests {
     #[test]
     fn verify_args_struct_by_command_run_with_no_delay_leader_block_for_pending_fork() {
         let default_run_args = RunArgs::default();
-        let expected_args = RunArgs {
-            delay_leader_block_for_pending_fork: false,
-            ..default_run_args.clone()
-        };
         verify_args_struct_by_command_run_with_identity_setup(
-            default_run_args,
+            default_run_args.clone(),
             vec!["--no-delay-leader-block-for-pending-fork"],
-            expected_args,
+            default_run_args,
         );
     }
 
     #[test]
     fn verify_args_struct_by_command_run_with_conflicting_delay_leader_flags_is_error() {
-        verify_args_struct_by_command_run_with_identity_setup_is_error::<RunArgs>(vec![
+        verify_args_struct_by_command_run_is_error_with_identity_setup(
+            RunArgs::default(),
+            vec![
             "--delay-leader-block-for-pending-fork",
             "--no-delay-leader-block-for-pending-fork",
-        ]);
+            ],
+        );
     }
 }
